@@ -1,0 +1,19 @@
+FROM node:14-slim
+
+RUN mkdir -p /home/node/app/node_modules && chown -R node:node /home/node/app
+
+WORKDIR /home/node/app
+
+USER node
+
+COPY --chown=node:node package*.json ./
+
+RUN npm install && npm cache clean --force
+
+ENV PATH=/home/node/app/node_modules/.bin:$PATH
+
+COPY --chown=node:node .  .
+
+EXPOSE 3000
+
+CMD ["node", "nodemon ./app.js"]
