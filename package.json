@@ -1,42 +1,31 @@
 {
-  "name": "backend",
+  "name": "backend-task",
   "version": "1.0.0",
-  "description": "HackerBay Backend Interview",
+  "description": "backend-task",
   "main": "app.js",
   "scripts": {
     "start": "nodemon ./app.js",
-    "test": "mocha --timeout 200000 --recursive --exit",
+    "test": "mocha --timeout 100000 --recursive --exit",
+    "coverage": "istanbul cover ./test/test.js",
     "lint": "eslint . --ext .js",
     "lint:fix": "npm run lint -- --fix"
   },
-  "keywords": [
-    "Backend"
-  ],
-  "author": "Frezeh",
+  "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^5.0.0",
     "chai": "^4.3.4",
     "chai-http": "^4.3.0",
     "cookie-parser": "^1.4.5",
-    "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "fast-json-patch": "^3.1.0",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "jimp": "^0.16.1",
-    "jsonpatch": "^3.0.1",
     "jsonwebtoken": "^8.5.1",
     "mocha": "^9.1.3",
-    "mockgoose": "^8.0.4",
-    "mongoose": "^5.11.11",
     "morgan": "~1.9.1",
-    "node-fetch": "^2.0.0",
-    "passport": "^0.4.1",
-    "passport-jwt": "^4.0.0",
-    "passport-local": "^1.0.0",
-    "passport-local-mongoose": "^6.0.1",
-    "supertest": "^6.1.6"
+    "node-fetch": "^2.0.0"
   },
   "devDependencies": {
     "eslint": "^8.0.1",

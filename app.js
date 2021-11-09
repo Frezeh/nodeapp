@@ -3,39 +3,37 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const passport = require('passport');
 const dotenv = require('dotenv');
-const mongoose = require('mongoose'); 
-const indexRouter = require('./routes/index');
-const loginRoute = require('./routes/loginRoute');
-const jsonpatchRoute = require('./routes/jsonpatchRoute');
-const thumbnailRoute = require('./routes/thumbnailRoute');
+const index = require('./routes/index');
+const login = require('./routes/login');
+const jsonpatch = require('./routes/jsonpatch');
+const thumbnail = require('./routes/thumbnailGenarator');
+const verifyToken = require('./verifyToken');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 dotenv.config();
 
-mongoose.connect(process.env.URI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
-  .then(() => app.listen(PORT, () => console.log(`Server Running at: http://localhost:${PORT}`)))
-  .catch((error) =>  console.log(`${error} did not connect`));
+app.listen(PORT, () => console.log(`Server Running at: http://localhost:${PORT}`));
 
-mongoose.set('useFindAndModify', false);
-
-// view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(passport.initialize());
 
-// endpoints
-app.use('/', indexRouter);
-app.use('/login', loginRoute);
-app.use('/jsonpatch', jsonpatchRoute);
-app.use('/thumbnail', thumbnailRoute);
+/* Homepage of API */
+app.use('/api', index);
+
+/* Public login endpoint  */
+app.use('/api/login', login);
+
+/* Protected JSONpatch endpoint  */
+app.use('/api/jsonpatch', verifyToken, jsonpatch);
+
+/* Protected Thumbnail Generator endpoint  */
+app.use('/api/thumbnail', verifyToken, thumbnail);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

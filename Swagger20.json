@@ -1,0 +1,287 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "node-task",
+    "contact": {}
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "securityDefinitions": {},
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api": {
+      "get": {
+        "summary": "Welcome Route",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "WelcomeRoute",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/api/login": {
+      "post": {
+        "summary": "Login Route",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "LoginRoute",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/LoginRouteRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/api/jsonpatch": {
+      "post": {
+        "summary": "JsonPatch Route",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "JsonPatchRoute",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/JsonPatchRouteRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/api/thumbnail": {
+      "post": {
+        "summary": "Thumbnail Route",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "ThumbnailRoute",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ThumbnailRouteRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "LoginRouteRequest": {
+      "title": "LoginRouteRequest",
+      "example": {
+        "username": "User1",
+        "password": "123456789"
+      },
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "username",
+        "password"
+      ]
+    },
+    "JsonPatchRouteRequest": {
+      "title": "JsonPatchRouteRequest",
+      "example": {
+        "jsonBody": {
+          "_id": "001",
+          "username": "User1",
+          "password": "123456789"
+        },
+        "jsonPatch": [
+          {
+            "op": "replace",
+            "path": "/username",
+            "value": "PatchUser"
+          }
+        ]
+      },
+      "type": "object",
+      "properties": {
+        "jsonBody": {
+          "$ref": "#/definitions/JsonBody"
+        },
+        "jsonPatch": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/JsonPatch"
+          }
+        }
+      },
+      "required": [
+        "jsonBody",
+        "jsonPatch"
+      ]
+    },
+    "JsonBody": {
+      "title": "JsonBody",
+      "example": {
+        "_id": "001",
+        "username": "User1",
+        "password": "123456789"
+      },
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "_id",
+        "username",
+        "password"
+      ]
+    },
+    "JsonPatch": {
+      "title": "JsonPatch",
+      "example": {
+        "op": "replace",
+        "path": "/username",
+        "value": "PatchUser"
+      },
+      "type": "object",
+      "properties": {
+        "op": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "op",
+        "path",
+        "value"
+      ]
+    },
+    "ThumbnailRouteRequest": {
+      "title": "ThumbnailRouteRequest",
+      "example": {
+        "image": "https://source.unsplash.com/random"
+      },
+      "type": "object",
+      "properties": {
+        "image": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "image"
+      ]
+    }
+  },
+  "tags": [
+    {
+      "name": "Misc",
+      "description": ""
+    }
+  ]
+}
